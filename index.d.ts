@@ -53,14 +53,25 @@ export interface MapCmd<A extends Action> {
   simulate(simulations?: CmdSimulation | MultiCmdSimulation): A[] | A | null
 }
 
-export interface RunCmd<A extends Action> {
+// export interface RunCmd<A extends Action> {
+//   readonly type: 'RUN';
+//   readonly func: Function;
+//   readonly args?: any[];
+//   readonly failActionCreator?: ActionCreator<A>;
+//   readonly successActionCreator?: ActionCreator<A>;
+//   readonly forceSync?: boolean;
+//   simulate(simulation: CmdSimulation): A
+// }
+
+// TODO: Fix A
+interface RunCmd<A extends Action, B extends any[], R, C extends (...args: B) => R> {
   readonly type: 'RUN';
-  readonly func: Function;
-  readonly args?: any[];
+  readonly func: C;
+  readonly args?: B;
   readonly failActionCreator?: ActionCreator<A>;
   readonly successActionCreator?: ActionCreator<A>;
   readonly forceSync?: boolean;
-  simulate(simulation: CmdSimulation): A
+  simulate(simulation: CmdSimulation): A;
 }
 
 //deprecated types
